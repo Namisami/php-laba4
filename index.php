@@ -33,14 +33,15 @@
   </form>
 
   <?php
-    $calc = "";
     if (!empty($_POST["calc"])) {
       $calc = $_POST["calc"];
     }
 
-    $result = "";
+    $expr = file_get_contents("expression.txt");
+    $result = $expr;
     if (!empty($calc)) {
       $result = calc($calc)[0];
+      file_put_contents("result.txt", $result);
     }
 
     function bracketError($seq) {
@@ -52,6 +53,8 @@
     }
 
     function calc($calc) {
+      include 'trig.php';
+
       if (gettype($calc) == "string") {
         $seq = to_array($calc);
       }
@@ -60,6 +63,18 @@
       }
       if (bracketError($seq)) {
         return ["Беды со скобками"];
+      }
+
+      $i = 0;
+      while ($i < count($seq)) {
+        $trig_func = substr($seq[$i], 0, 3);
+        if ($trig_func == "sin" or
+            $trig_func == "cos" or
+            $trig_func == "tan") {
+          $trig = trig($seq[$i]);
+          $seq[$i] = $trig;
+        }
+        $i++;
       }
 
       $bracketsOpen = 99999;
@@ -114,22 +129,22 @@
     }
 
     function mult($seq, $index) {
-      $res = (string)((int)$seq[$index - 1] * (int)$seq[$index + 1]);
+      $res = (string)((float)$seq[$index - 1] * (float)$seq[$index + 1]);
       array_splice($seq, $index - 1, 3, $res);
       return $seq;
     }
     function div($seq, $index) {
-      $res = (string)((int)$seq[$index - 1] / (int)$seq[$index + 1]);
+      $res = (string)((float)$seq[$index - 1] / (float)$seq[$index + 1]);
       array_splice($seq, $index - 1, 3, $res);
       return $seq;
     }
     function plus($seq, $index) {
-      $res = (string)((int)$seq[$index - 1] + (int)$seq[$index + 1]);
+      $res = (string)((float)$seq[$index - 1] + (float)$seq[$index + 1]);
       array_splice($seq, $index - 1, 3, $res);
       return $seq;
     }
     function minus($seq, $index) {
-      $res = (string)((int)$seq[$index - 1] - (int)$seq[$index + 1]);
+      $res = (string)((float)$seq[$index - 1] - (float)$seq[$index + 1]);
       array_splice($seq, $index - 1, 3, $res);
       return $seq;
     }
