@@ -10,22 +10,22 @@
 <body>
   <form action="index.php" method="POST" class="calc" style="gap: 3px;">
     <input type="text" readonly name="calc" class="equation">
-    <input value="(" type="button" class="calc-element bracket-open">
-    <input value=")" type="button" class="calc-element bracket-close">
+    <input value="(" type="button" class="bracket calc-element bracket-open">
+    <input value=")" type="button" class="bracket calc-element bracket-close">
     <input value="C" type="button" class="delete">
-    <input value="/" type="button" class="calc-element division">
+    <input value="/" type="button" class="operator calc-element division">
     <input value="7" type="button" class="calc-element seven">
     <input value="8" type="button" class="calc-element eight">
     <input value="9" type="button" class="calc-element nine">
-    <input value="*" type="button" class="calc-element multiplication">
+    <input value="*" type="button" class="operator calc-element multiplication">
     <input value="4" type="button" class="calc-element four">
     <input value="5" type="button" class="calc-element five">
     <input value="6" type="button" class="calc-element six">
-    <input value="-" type="button" class="calc-element minus">
+    <input value="-" type="button" class="operator calc-element minus">
     <input value="1" type="button" class="calc-element one">
     <input value="2" type="button" class="calc-element two">
     <input value="3" type="button" class="calc-element three">
-    <input value="+" type="button" class="calc-element plus">
+    <input value="+" type="button" class="operator calc-element plus">
     <input type="button">
     <input value="0" type="button" class="calc-element zero">
     <input type="button">
@@ -58,7 +58,6 @@
       else {
         $seq = $calc;
       }
-
       if (bracketError($seq)) {
         return ["Беды со скобками"];
       }
@@ -137,12 +136,11 @@
 
     function to_array($calc) {
       $res = explode(" ", $calc);
-      array_pop($res);
       return $res;
     }
   ?>
   <script>
-    let res = "<?=$result?> ";
+    let res = "<?=$result?>";
   </script>
   <script src="script.js"></script>
 </body>

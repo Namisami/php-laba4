@@ -7,7 +7,15 @@ for (number of numbers) {
 let calc = document.querySelector('.equation');
 function addText(text) {
   text = text.srcElement.value;
-  calc.value += text + " ";
+  if ((text == "+") | (text == "-") | (text == "*") | (text == "/")) {
+    calc.value += " " + text + " ";
+  } else if (text == "(") {
+    calc.value += text + " ";
+  } else if (text == ")") {
+    calc.value += " " + text;
+  } else {
+    calc.value += text;
+  }
 }
 
 for (num in nums) {
