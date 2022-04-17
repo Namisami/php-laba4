@@ -1,0 +1,11 @@
+.calc {
+  height: 400px;
+  width: 500px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 50px repeat(5, 1fr);
+}
+.equation {
+  grid-column: 1 / 5;
+  font-size: 2em;
+}
